@@ -1,4 +1,4 @@
-# Gelato Relayer Example
+# Lyra Account Abstraction Examples
 
 * ethers version: v5.7.2
 
