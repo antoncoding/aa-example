@@ -1,7 +1,7 @@
 import { BigNumber, ethers, utils } from 'ethers'
 import { GelatoRelay, CallWithSyncFeeERC2771Request } from "@gelatonetwork/relay-sdk";
 import { addresses } from '../addresses';
-import { signReceiveWithAuth } from "../permit"
+import { signReceiveWithAuth } from "../sigUtils"
 import mainnetTestForwarder from "../abi/lyra-selfpaying-mainnet.json";
 import usdcAbi from "../abi/usdc.json";
 
@@ -25,7 +25,7 @@ const relay = new GelatoRelay();
 const forwarder = new ethers.Contract(networkConfig.selfPayingForwarder, mainnetTestForwarder, user);
 
 /**
- * npx ts-node examples/l1-deposit/deposit-opbridge-selfpaying.ts
+ * npx ts-node examples/deposit/deposit-opbridge-selfpaying.ts
  * 
  */
 async function run() {

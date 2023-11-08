@@ -1,7 +1,7 @@
 import { ethers, utils } from 'ethers'
 import { GelatoRelay, CallWithERC2771Request, ERC2771Type } from "@gelatonetwork/relay-sdk";
 import { addresses } from '../addresses';
-import { signReceiveWithAuth } from "../permit"
+import { signReceiveWithAuth } from "../sigUtils"
 import forwarderAbi from "../abi/lyra-forwarder.json";
 import usdcAbi from "../abi/usdc.json";
 
@@ -26,7 +26,7 @@ const relay = new GelatoRelay();
 const forwarder = new ethers.Contract(networkConfig.lyraForwarderSponsored, forwarderAbi, user);
 
 /**
- * npx ts-node examples/l1-deposit/deposit-socket-sponsored.ts
+ * npx ts-node examples/deposit/deposit-socket-sponsored.ts
  * 
  */
 async function run() {
@@ -35,7 +35,7 @@ async function run() {
   
   const depositAmount = '7000000';
 
-  const usdc = new ethers.Contract(networkConfig.l1USDC, usdcAbi, user.provider)
+  const usdc = new ethers.Contract(networkConfig.usdc, usdcAbi, user.provider)
   const balance = await usdc.balanceOf(user.address)
   console.log('Balance:\t', utils.formatUnits(balance, 6), 'USDC')
 
@@ -45,7 +45,7 @@ async function run() {
   // Build Permit data
   const now = Math.floor(Date.now() / 1000)
   const deadline = now + 86400;
-  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.l1USDC, forwarder.address, depositAmount, now, deadline)
+  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, depositAmount, now, deadline)
   
   // whole tx
   const minGas = '400000'
@@ -93,6 +93,5 @@ async function run() {
   const balanceAfter = await usdc.balanceOf(user.address)
   console.log('New Balance:\t', utils.formatUnits(balanceAfter, 6), 'USDC')
 }
-
 
 run();
