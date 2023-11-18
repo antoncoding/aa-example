@@ -29,14 +29,15 @@ const forwarder = new ethers.Contract(networkConfig.selfPayingForwarder, mainnet
  * 
  */
 async function run() {
-  console.log('Depositing USDC with Gelato + Standard Bridge', user.address)
+  console.log('Depositing USDC with Gelato + Socket Vault', user.address)
   console.log('NetworkID:\t', (await (provider.getNetwork())).chainId)
-  
-  const depositAmount = '50000000';
+
 
   const usdc = new ethers.Contract(networkConfig.usdc, usdcAbi, user.provider)
   const balance = await usdc.balanceOf(user.address)
   console.log('Balance:\t', utils.formatUnits(balance, 6), 'USDC')
+
+  const depositAmount = balance;
 
   // calculate L2 safe address to deposit in, or it can be any recipient
   const toSCW = true
@@ -45,14 +46,16 @@ async function run() {
   const now = Math.floor(Date.now() / 1000)
   const deadline = now + 86400;
   const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, depositAmount, now, deadline)
-
-  // this version of the contract still use recipient address instead of boolean
-  const receiver = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
   
   // whole tx
-  const minGas = '300000'
-  const maxFeeUSDC = '18000000'
-  const { data } = await forwarder.populateTransaction.depositUSDCNativeBridge(maxFeeUSDC, receiver, minGas, {
+  const minGas = '100000'
+  const maxFeeUSDC = '20000000'
+  const { data } = await forwarder.populateTransaction.depositUSDCSocketBridge(
+    maxFeeUSDC, 
+    toSCW, 
+    minGas, 
+    networkConfig.nativeConnector,
+    {
     value: depositAmount,
     validAfter: now,
     validBefore: deadline,
@@ -105,9 +108,6 @@ async function run() {
 
   const balanceAfter = await usdc.balanceOf(user.address)
   console.log('New Balance:\t', utils.formatUnits(balanceAfter, 6), 'USDC')
-
-  // example tx:
-  // 0x190611614f2e0fd2cda14f0691329e753b02bab5fccb43868c11f733b91433da
 }
 
 
