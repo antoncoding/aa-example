@@ -2,19 +2,19 @@ import { ethers, utils } from 'ethers'
 import { GelatoRelay, CallWithERC2771Request, ERC2771Type } from "@gelatonetwork/relay-sdk";
 import { addresses } from '../addresses';
 import { signReceiveWithAuth } from "../sigUtils"
-import forwarderAbi from "../abi/lyra-forwarder.json";
+import forwarderAbi from "../abi/lyra-sponsored-mainnet.json";
 import usdcAbi from "../abi/usdc.json";
 
 // dot env
 import dotenv from 'dotenv'
 dotenv.config()
 
-const RPC_URL = 'https://optimism-goerli.blockpi.network/v1/rpc/public'
+const RPC_URL = `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`
 
 const OWNER_PK = process.env.OWNER_PRIVATE_KEY!
 const GELATO_RELAY_API_KEY = process.env.GELATO_RELAY_API_KEY!;
 
-const networkConfig = addresses.goerliOptimism
+const networkConfig = addresses.mainnet
 
 // This will be connected wallet in Metamask
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
@@ -33,8 +33,6 @@ async function run() {
   console.log('Depositing USDC with Gelato + Socket from', user.address)
   console.log('NetworkID:\t', (await (provider.getNetwork())).chainId)
   
-  const depositAmount = '7000000';
-
   const usdc = new ethers.Contract(networkConfig.usdc, usdcAbi, user.provider)
   const balance = await usdc.balanceOf(user.address)
   console.log('Balance:\t', utils.formatUnits(balance, 6), 'USDC')
@@ -45,12 +43,13 @@ async function run() {
   // Build Permit data
   const now = Math.floor(Date.now() / 1000)
   const deadline = now + 86400;
-  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, depositAmount, now, deadline)
+  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, balance, now, deadline)
   
   // whole tx
-  const minGas = '400000'
-  const { data } = await forwarder.populateTransaction.depositUSDCSocketBridge(depositAmount, toSCW, minGas, {
-    value: depositAmount,
+  const minGas = '150000'
+  const connector = networkConfig.nativeConnector
+  const { data } = await forwarder.populateTransaction.depositUSDCSocketBridge(toSCW, minGas, connector, {
+    value: balance,
     validAfter: now,
     validBefore: deadline,
     nonce: nonce,

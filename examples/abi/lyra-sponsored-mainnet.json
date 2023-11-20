@@ -2,12 +2,9 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_usdcLocal", "type": "address" },
-      { "internalType": "address", "name": "_usdcRemote", "type": "address" },
-      { "internalType": "address", "name": "_bridge", "type": "address" },
-      { "internalType": "address", "name": "_socketVault", "type": "address" },
-      { "internalType": "address", "name": "_socketConnector", "type": "address" }
+      { "internalType": "address", "name": "_socketVault", "type": "address" }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "constructor"
   },
   {
@@ -19,34 +16,9 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "depositAmount", "type": "uint256" },
       { "internalType": "bool", "name": "isScwWallet", "type": "bool" },
       { "internalType": "uint32", "name": "minGasLimit", "type": "uint32" },
-      {
-        "components": [
-          { "internalType": "uint256", "name": "value", "type": "uint256" },
-          { "internalType": "uint256", "name": "validAfter", "type": "uint256" },
-          { "internalType": "uint256", "name": "validBefore", "type": "uint256" },
-          { "internalType": "bytes32", "name": "nonce", "type": "bytes32" },
-          { "internalType": "uint8", "name": "v", "type": "uint8" },
-          { "internalType": "bytes32", "name": "r", "type": "bytes32" },
-          { "internalType": "bytes32", "name": "s", "type": "bytes32" }
-        ],
-        "internalType": "struct LyraForwarderBase.ReceiveWithAuthData",
-        "name": "authData",
-        "type": "tuple"
-      }
-    ],
-    "name": "depositUSDCNativeBridge",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "depositAmount", "type": "uint256" },
-      { "internalType": "bool", "name": "isScwWallet", "type": "bool" },
-      { "internalType": "uint32", "name": "minGasLimit", "type": "uint32" },
+      { "internalType": "address", "name": "connector", "type": "address" },
       {
         "components": [
           { "internalType": "uint256", "name": "value", "type": "uint256" },
@@ -83,13 +55,6 @@
   },
   {
     "inputs": [],
-    "name": "socketConnector",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "socketVault",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -97,21 +62,7 @@
   },
   {
     "inputs": [],
-    "name": "standardBridge",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "usdcLocal",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "usdcRemote",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
