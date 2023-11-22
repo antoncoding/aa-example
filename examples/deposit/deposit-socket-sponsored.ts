@@ -40,16 +40,18 @@ async function run() {
   // calculate L2 safe address to deposit in, or it can be any recipient
   const toSCW = true
 
+  const depositAmount = 10_000000
+
   // Build Permit data
   const now = Math.floor(Date.now() / 1000)
   const deadline = now + 86400;
-  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, balance, now, deadline)
+  const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, depositAmount, now, deadline)
   
   // whole tx
   const minGas = '150000'
-  const connector = networkConfig.nativeConnector
+  const connector = networkConfig.fastConnector
   const { data } = await forwarder.populateTransaction.depositUSDCSocketBridge(toSCW, minGas, connector, {
-    value: balance,
+    value: depositAmount,
     validAfter: now,
     validBefore: deadline,
     nonce: nonce,
