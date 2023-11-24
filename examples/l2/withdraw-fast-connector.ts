@@ -35,7 +35,8 @@ async function run() {
   const balance = await usdc.balanceOf(user.address)
   console.log('USDC Balance:\t', utils.formatUnits(balance, 6), 'USDC')
 
-  const amount = '10000000';
+  const amount = '50000000';
+  console.log('Withdrawing:\t', utils.formatUnits(amount, 6), 'USDC')
 
   // whole tx
   const minGas = '500000'
@@ -45,12 +46,16 @@ async function run() {
   
   // these txs should be batched
 
-  // 1. approve
-  const tx1 = await usdc.connect(user).approve(networkConfig.withdrawalHelper, balance)
-  console.log('Approving...', tx1.hash)
+  const allowance = await usdc.allowance(user.address, networkConfig.withdrawalHelper)
+  if (allowance <  amount ) {
+    // 1. approve
+    const tx1 = await usdc.connect(user).approve(networkConfig.withdrawalHelper, balance)
+    console.log('Approving...\t', tx1.hash)
+  }
+
   // 2. withdraw
   const tx = await helper.connect(user).withdrawToL1(amount, user.address, networkConfig.fastConnector, minGas)
-  console.log('Withdrawing...', tx.hash)
+  console.log('Withdraw Tx:\t', tx.hash)
 }
 
 
