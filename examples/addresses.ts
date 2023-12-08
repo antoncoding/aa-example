@@ -1,7 +1,8 @@
 export const addresses = {
   goerliOptimism: {
     usdc: '0x0f8BEaf58d4A237C88c9ed99D82003ab5c252c26',
-    lyraForwarderSponsored: '0x95c470DCd92802943A55e9F9a4111A8dCcC5B0Fc',
+    lyraForwarderSponsored: '0x800F00DCd52f0DdBe639A1D384d157F944c71024',
+    fastConnector: '0xfBf496B6DBda9d5e778e2563493BCb32F5A52B51',
   },
   mainnet: {
     selfPayingForwarder: '0x00efac83a3168568e258ab1ec85e85c10cbaf74e',
@@ -18,7 +19,7 @@ export const addresses = {
   },
   lyra: {
     usdc: '0x6879287835A86F50f784313dBEd5E5cCC5bb8481',
-    withdrawalHelper: '0x93fa965d5584e03f8087D4b6a485D610356a3dea', // todo: update to new version with viewer
+    withdrawalHelper: '0x65eA751cb9f61612308DA345B2681F5163Df5552',
     fastConnector: '0x1281C1464449DB73bdAa30928BCC63Dc25D8D187',
     nativeConnector: '0x19609EeE157BC38E1A40E19c38218fC3900d97ac'
   }

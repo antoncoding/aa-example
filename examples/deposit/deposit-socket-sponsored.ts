@@ -9,12 +9,12 @@ import usdcAbi from "../abi/usdc.json";
 import dotenv from 'dotenv'
 dotenv.config()
 
-const RPC_URL = `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`
+const RPC_URL = `https://optimism-goerli.infura.io/v3/ea21b2313cdf43c28f25b849d7a75274`
 
 const OWNER_PK = process.env.OWNER_PRIVATE_KEY!
 const GELATO_RELAY_API_KEY = process.env.GELATO_RELAY_API_KEY!;
 
-const networkConfig = addresses.mainnet
+const networkConfig = addresses.goerliOptimism
 
 // This will be connected wallet in Metamask
 const provider = new ethers.providers.JsonRpcProvider(RPC_URL)
@@ -48,7 +48,7 @@ async function run() {
   const {sig, nonce} = await signReceiveWithAuth(user, networkConfig.usdc, forwarder.address, depositAmount, now, deadline)
   
   // whole tx
-  const minGas = '150000'
+  const minGas = '200000'
   const connector = networkConfig.fastConnector
   const { data } = await forwarder.populateTransaction.depositUSDCSocketBridge(toSCW, minGas, connector, {
     value: depositAmount,
