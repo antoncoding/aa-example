@@ -37,7 +37,7 @@ async function run() {
   const balance = await usdc.balanceOf(user.address)
   console.log('Balance:\t', utils.formatUnits(balance, 6), 'USDC')
 
-  const depositAmount = balance;
+  const depositAmount = 30_000000;
 
   // calculate L2 safe address to deposit in, or it can be any recipient
   const toSCW = true
@@ -64,6 +64,14 @@ async function run() {
     r: sig.r,
     s: sig.s,
   })
+
+  const gasLimit = await provider.estimateGas({
+    data,
+    to: forwarder.address,
+    from: '0xb539068872230f20456cf38ec52ef2f91af4ae49',
+  });
+
+  console.log('Gas Limit:\t', gasLimit.toString())
   
   // Populate a relay request
   const request: CallWithSyncFeeERC2771Request = {
