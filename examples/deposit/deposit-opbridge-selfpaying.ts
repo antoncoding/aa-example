@@ -65,14 +65,6 @@ async function run() {
     s: sig.s,
   })
 
-  const gasLimit = await provider.estimateGas({
-    data,
-    to: forwarder.address,
-    from: '0xb539068872230f20456cf38ec52ef2f91af4ae49',
-  });
-
-  console.log('Gas Limit:\t', gasLimit.toString())
-  
   // Populate a relay request
   const request: CallWithSyncFeeERC2771Request = {
     chainId: provider.network.chainId,
