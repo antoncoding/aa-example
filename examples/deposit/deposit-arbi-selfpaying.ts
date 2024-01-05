@@ -1,7 +1,7 @@
 import { BigNumber, ethers, utils } from 'ethers'
 import { GelatoRelay, CallWithERC2771Request, ERC2771Type, CallWithSyncFeeERC2771Request } from "@gelatonetwork/relay-sdk";
 import { addresses } from '../addresses';
-import { signPermit, signReceiveWithAuth } from "../sigUtils"
+import { signPermit } from "../sigUtils"
 import forwarderAbi from "../abi/permit-forwarder-selfpaying.json";
 import usdcAbi from "../abi/usdc.json";
 
