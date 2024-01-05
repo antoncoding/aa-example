@@ -64,7 +64,9 @@ export const signPermit = async (wallet: Wallet, token: string, spender: string,
   const owner = wallet.address
   const nonce = await usdc.nonces(wallet.address)
   const name = await usdc.name()
-  const version = await usdc.version()
+  const version = '1' // await usdc.version()
+
+  console.log('all good here')
   
   const chainId = await wallet.getChainId()
     

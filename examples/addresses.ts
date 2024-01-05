@@ -22,5 +22,10 @@ export const addresses = {
     withdrawalHelper: '0x65eA751cb9f61612308DA345B2681F5163Df5552',
     fastConnector: '0x1281C1464449DB73bdAa30928BCC63Dc25D8D187',
     nativeConnector: '0x19609EeE157BC38E1A40E19c38218fC3900d97ac'
+  },
+  arbiSepolia: {
+    usdc: '0x8537307810fC40F4073A12a38554D4Ff78EfFf41',
+    permitForwarder: '0x790E67f21e850301881Cb919B2363F22eF1b8a4D',
+    fastConnector: '0x771d1Ae208377453D478dF08BbC38034F72aC833'
   }
 }
