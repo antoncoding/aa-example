@@ -1,12 +1,5 @@
 [
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_token", "type": "address" },
-      { "internalType": "address", "name": "_socketVault", "type": "address" }
-    ],
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
+  { "inputs": [], "stateMutability": "payable", "type": "constructor" },
   {
     "anonymous": false,
     "inputs": [
@@ -18,6 +11,8 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "token", "type": "address" },
+      { "internalType": "address", "name": "socketVault", "type": "address" },
       { "internalType": "bool", "name": "isScwWallet", "type": "bool" },
       { "internalType": "uint32", "name": "minGasLimit", "type": "uint32" },
       { "internalType": "address", "name": "connector", "type": "address" },
@@ -65,20 +60,6 @@
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "socketVault",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "token",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
     "type": "function"
   },
   {

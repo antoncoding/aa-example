@@ -51,7 +51,10 @@ async function run() {
   // whole tx
   const minGas = '200000'
   const connector = networkConfig.fastConnector
-  const { data } = await forwarder.populateTransaction.depositGasless(maxFeeUSDC, toSCW, minGas, connector, {
+  const { data } = await forwarder.populateTransaction.depositGasless(
+    networkConfig.usdc,
+    networkConfig.socketVault, 
+    maxFeeUSDC, toSCW, minGas, connector, {
     value: depositAmount,
     deadline: deadline,
     v: sig.v,

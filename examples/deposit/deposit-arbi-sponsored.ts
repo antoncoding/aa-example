@@ -50,13 +50,19 @@ async function run() {
   // whole tx
   const minGas = '250000'
   
-  const { data } = await forwarder.populateTransaction.depositGasless(toSCW, minGas, networkConfig.fastConnector, {
-    value: depositAmount,
-    deadline: deadline,
-    v: sig.v,
-    r: sig.r,
-    s: sig.s,
-  })
+  const { data } = await forwarder.populateTransaction.depositGasless(
+    networkConfig.usdc, 
+    networkConfig.socketVault, 
+    toSCW, 
+    minGas, 
+    networkConfig.fastConnector, 
+    {
+      value: depositAmount,
+      deadline: deadline,
+      v: sig.v,
+      r: sig.r,
+      s: sig.s,
+    })
   
   // Populate a relay request
   const request: CallWithERC2771Request = {

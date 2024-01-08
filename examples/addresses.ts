@@ -25,8 +25,9 @@ export const addresses = {
   },
   arbiSepolia: {
     usdc: '0x8537307810fC40F4073A12a38554D4Ff78EfFf41',
-    permitForwarder: '0xfe051cc322f5124e53ca89611dd0c9a32f350a1c',
-    permitForwarderSponsored: '0x543A14451ED4875F130ED0A11904d9de51c7edbc',
-    fastConnector: '0x771d1Ae208377453D478dF08BbC38034F72aC833'
+    permitForwarder: '0xF3520BB46fef439342b0F1A37E9C0673a252B5eA',
+    permitForwarderSponsored: '0xE3436F0F982fbbAf88f28DACE9b36a85c97aECdE',
+    fastConnector: '0x771d1Ae208377453D478dF08BbC38034F72aC833',
+    socketVault: '0x1281C1464449DB73bdAa30928BCC63Dc25D8D187'
   }
 }
